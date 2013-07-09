@@ -4,6 +4,7 @@ var flatten = flat.flatten = function (target, opts) {
     var output = {}
       , opts = opts || {}
       , delimiter = opts.delimiter || '.'
+      , prefix = opts.prefix || ''
 
     function getkey(key, prev) {
         return prev ? prev + delimiter + key : key
@@ -25,7 +26,7 @@ var flatten = flat.flatten = function (target, opts) {
         });
     };
 
-    step(target)
+    step(target, prefix)
 
     return output
 };

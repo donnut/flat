@@ -91,6 +91,44 @@ suite('Flatten', function() {
             'world.lorem.dolor': 'sit'
         })
     })
+    test('Deep object', function() {
+        assert.deepEqual(flatten({
+          basic: { 
+            sh: 'no',
+            u: false,
+            t: false,
+            i: 'n',
+            c: 'hgl',
+            w: 'b',
+            sz: 'l',
+            f: 'b' 
+          },
+          hover: { 
+            u: false, 
+            w: 'b' 
+          },
+          active: { 
+            u: false, 
+            w: 'b' 
+          } 
+        }, {
+          delimiter: '_'
+        }),
+        {
+          active_u: false,
+          active_w: 'b',
+          hover_u: false,
+          hover_w: 'b',
+          basic_u: false,
+          basic_t: false,
+          basic_sh: 'no',
+          basic_i: 'n',
+          basic_c: 'hgl',
+          basic_w: 'b',
+          basic_sz: 'l',
+          basic_f: 'b' 
+        })
+    })
     test('Custom Delimiter', function() {
         assert.deepEqual(flatten({
             hello: {
@@ -102,6 +140,19 @@ suite('Flatten', function() {
             delimiter: ':'
         }), {
             'hello:world:again': 'good morning'
+        })
+    })
+    test('Prefix', function() {
+        assert.deepEqual(flatten({
+            hello: {
+                world: {
+                    again: 'good morning'
+                }
+            }
+        }, {
+            prefix: 'big'
+        }), {
+            'big.hello.world.again': 'good morning'
         })
     })
 })
